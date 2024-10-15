@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Main Menu</h2>
+        <ul>
+            <li><a href="{{ url_for('test_connection', access_token=access_token) }}">Test Connection</a></li>
+            <li><a href="{{ url_for('user_info', access_token=access_token) }}">Display User Info</a></li>
+            <li><a href="{{ url_for('rooms', access_token=access_token) }}">List Rooms</a></li>
+            <li><a href="{{ url_for('create_room', access_token=access_token) }}">Create a Room</a></li>
+        </ul>
+
+        <form action="{{ url_for('logout') }}" method="GET">
+            <button type="submit" class="logout-btn">Log Out</button>
+        </form>
+        
+    </div>
+</body>
+</html>

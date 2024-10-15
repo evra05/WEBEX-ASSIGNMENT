@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function toggleMessageForm(id) {
+            const form = document.getElementById('form-' + id);
+            // Toggle the visibility of the message form
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Webex Rooms</h2>
+        <ul>
+            {% for room in rooms %}
+            <li>
+                <strong>{{ room['title'] }}</strong>
+                
+                <!-- Info Button with Icon -->
+                <button type="button" onclick="window.location.href='{{ url_for('room_info', access_token=access_token, room_id=room['id']) }}'">
+                    <img src="{{ url_for('static', filename='info.png') }}" alt="Info" style="width:20px; height:20px;">
+                </button>
+
+                <!-- Message Button with Icon -->
+                <button type="button" onclick="toggleMessageForm('{{ room['id'] }}')">
+                    <img src="{{ url_for('static', filename='messenger.png') }}" alt="Message" style="width:20px; height:20px;">
+                </button>
+
+                <!-- Form to send message, initially hidden -->
+                <div id="form-{{ room['id'] }}" style="display: none; margin-top: 10px;">
+                    <form method="POST" action="{{ url_for('rooms', access_token=access_token) }}">
+                        <input type="hidden" name="room_id" value="{{ room['id'] }}">
+                        <textarea name="message" rows="2" placeholder="Enter your message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('menu', access_token=access_token) }}"><button>Back to Menu</button></a>
+    </div>
+</body>
+</html>

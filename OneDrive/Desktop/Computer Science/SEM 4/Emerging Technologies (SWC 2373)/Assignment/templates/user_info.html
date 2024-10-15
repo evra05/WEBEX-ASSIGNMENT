@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="profile-card">
+        <!-- Profile Image Section -->
+        <div class="profile-image">
+            <img src="{{ user_info['avatar'] }}" alt="Profile Picture">
+        </div>
+
+        <!-- User Details Section -->
+        <div class="profile-details">
+            <h2>{{ user_info['displayName'] }}</h2>
+            <p><strong>Email:</strong> {{ user_info['emails'][0] }}</p>
+            <p><strong>Org ID:</strong> <span class="org-id">{{ user_info['orgId'] }}</span>
+                <button class="copy-button" onclick="copyToken()">Copy</button>
+        
+        <script>
+        function copyToken() {
+            const token = "{{ user_info['orgId'] }}";
+            navigator.clipboard.writeText(token);
+            alert('Org ID copied to clipboard!');
+        }
+        </script>
+            <p><strong>Location:</strong> {{ user_info['location'] or 'Not available' }}</p>
+        </div>
+
+        <!-- Button to View Rooms -->
+        <div class="profile-actions">
+            <a href="{{ url_for('rooms', access_token=access_token) }}"><button>Show Rooms</button></a>
+        </div>
+    </div>
+</body>
+</html>

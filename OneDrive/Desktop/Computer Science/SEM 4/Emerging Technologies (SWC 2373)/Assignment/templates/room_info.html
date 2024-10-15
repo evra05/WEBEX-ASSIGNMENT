@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Add the dark theme and table styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1c1c1e;
+            color: #f9fafb;
+        }
+
+        .container {
+            background-color: #2c2c2e;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #3a3a3c;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3a3a3c;
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #1f1f1f;
+            color: #f9fafb;
+            word-wrap: break-word;  /* Long words will break */
+            word-break: break-all;  /* Ensures breaking happens at any point */
+            max-width: 400px;       /* Set a reasonable max-width to avoid excessive width */
+            white-space: normal;    /* Allows text to wrap */
+        }
+
+        button {
+            padding: 12px 20px;
+            background: linear-gradient(90deg, #6366f1, #3b82f6);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #4f46e5, #2563eb);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: transparent;
+            border: 2px solid #60a5fa;
+            border-radius: 8px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #60a5fa;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Room Information</h2>
+        <table>
+            <tr>
+                <th>Room Name</th>
+                <td>{{ room['title'] }}</td>
+            </tr>
+            <tr>
+                <th>Room ID</th>
+                <td>{{ room['id'] }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ room['created'] }}</td>
+            </tr>
+            <tr>
+                <th>Last Activity</th>
+                <td>{{ room['lastActivity'] if room['lastActivity'] else 'No activity yet' }}</td>
+            </tr>
+        </table>
+
+        <!-- Buttons for Delete and Back to Rooms -->
+        <div class="button-container">
+            <form method="POST">
+                <button type="submit" name="delete_room" class="button">Delete Room</button>
+            </form>
+            <a href="{{ url_for('rooms', access_token=access_token) }}" class="back-button">Back to Rooms</a>
+        </div>
+    </div>
+</body>
+</html>

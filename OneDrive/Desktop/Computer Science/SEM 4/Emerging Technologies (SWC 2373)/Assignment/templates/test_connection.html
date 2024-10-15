@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Connection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Connection Test</h2>
+        <p>{{ message }}</p> <!-- Displays the result of the connection test -->
+        <a href="{{ url_for('menu', access_token=access_token) }}" class="back-button">Back to Menu</a>
+    </div>
+</body>
+</html>
